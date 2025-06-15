@@ -7,7 +7,7 @@ import {jwtService} from "../services/jwt.service.js";
 const registration = async (req, res) => {
   const {name, email, password} = req.body;
 
-  const user = User.findOne({ where: {email} });
+  const user = await User.findOne({ where: {email} });
 
   if(user) {
     return res.send({ message: 'You are already registred' });
@@ -75,8 +75,17 @@ const generateToken = (res, user) => {
   });
 }
 
+const logout = (req, res) => {
+  res.clearCookie('refreshToken', {
+    httpOnly: true
+  });
+
+  res.send({ message: 'Logged out successfully' });
+}
+
 export const authController = {
   registration,
   activation,
-  login
+  login,
+  logout
 }
