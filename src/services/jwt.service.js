@@ -2,7 +2,7 @@ import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 
 function sign(user) {
-  const token = jwt.sign({ email: user.email }, process.env.JWT_KEY, {
+  const token = jwt.sign({ email: user.email, id: user.id }, process.env.JWT_KEY, {
     expiresIn: '15m',
   });
 
@@ -10,7 +10,7 @@ function sign(user) {
 }
 
 function refreshSign(user) {
-  const token = jwt.sign({ email: user.email }, process.env.JWT_REFRESHKEY);
+  const token = jwt.sign({ email: user.email, id: user.id }, process.env.JWT_REFRESHKEY);
 
   return token;
 }

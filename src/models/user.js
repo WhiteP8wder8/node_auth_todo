@@ -1,5 +1,6 @@
 import {DataTypes} from 'sequelize';
 import {client} from "../utils/db.js";
+import {Todo} from "./todo.js";
 
 export const User = client.define('user', {
   name: {
@@ -24,3 +25,6 @@ export const User = client.define('user', {
     type: DataTypes.STRING,
   }
 });
+
+User.hasMany(Todo, {foreignKey: 'userId'});
+Todo.belongsTo(User, {foreignKey: 'userId'});

@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import {jwtService} from "../services/jwt.service.js";
 
 export const isAuthMiddleware = (req, res, next) => {
   const token = req.cookies.refreshToken;
@@ -8,9 +8,8 @@ export const isAuthMiddleware = (req, res, next) => {
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_REFRESHKEY);
+    req.user = jwtService.verifyRefreshToken(token);
 
-    req.user = payload;
     next();
   } catch (e) {
     return res.status(401).json({ message: 'Invalid or expired token' });
