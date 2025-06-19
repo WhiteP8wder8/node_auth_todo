@@ -33,6 +33,21 @@ function sendActivationEmail(email, token) {
   });
 }
 
+function sendResetPassEmail(email, token) {
+  const href = `http://localhost:3005/reset-password/${token}`;
+  const html = `
+  <h1>Reset password</h1>
+  <a href="${href}">${href}</a>
+  `;
+
+  return send({
+    email,
+    subject: 'Reset password',
+    html,
+  });
+}
+
 export const mailService = {
   sendActivationEmail,
+  sendResetPassEmail
 }

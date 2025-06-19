@@ -11,3 +11,6 @@ authRoute.post('/registration', isGuestMiddleware, existUserMiddleware, authCont
 authRoute.get('/registration/:activationToken', isGuestMiddleware, authController.activation);
 authRoute.post('/login', isGuestMiddleware, authController.login);
 authRoute.post('/logout', isAuthMiddleware, authController.logout);
+
+authRoute.post('/reset-password', isGuestMiddleware, authController.sendNewPassEmail);
+authRoute.put('/reset-password/:resetToken', isGuestMiddleware, authController.changePassword);
